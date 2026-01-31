@@ -1,0 +1,504 @@
+{
+  "info": {
+    "name": "JANDED API",
+    "description": "Complete API collection for JANDED - International Opportunities Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"country\": \"Nigeria\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@janded.com\",\n  \"password\": \"Test123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"country\": \"Nigeria\",\n  \"phone\": \"+234-XXX-XXXX\",\n  \"bio\": \"Passionate software engineer\",\n  \"linkedinUrl\": \"https://linkedin.com/in/johndoe\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"Test123!\",\n  \"newPassword\": \"NewSecure123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/change-password",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "change-password"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/jobs?page=1&limit=20&visaSponsored=true",
+              "host": ["{{base_url}}"],
+              "path": ["jobs"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "visaSponsored",
+                  "value": "true"
+                },
+                {
+                  "key": "country",
+                  "value": "United Kingdom",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "Healthcare",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "nurse",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Job",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/jobs/1",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/jobs/categories",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Countries",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/jobs/countries",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "countries"]
+            }
+          }
+        },
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Software Engineer\",\n  \"company\": \"Tech Corp\",\n  \"location\": \"Berlin, Germany\",\n  \"country\": \"Germany\",\n  \"flag\": \"🇩🇪\",\n  \"salary\": \"€55,000 - €75,000\",\n  \"salaryMin\": 55000,\n  \"salaryMax\": 75000,\n  \"currency\": \"EUR\",\n  \"jobType\": \"Full-time\",\n  \"category\": \"Technology\",\n  \"visaSponsored\": true,\n  \"description\": \"Join our innovative team...\",\n  \"requirements\": [\"Bachelor's degree\", \"2+ years experience\"],\n  \"benefits\": [\"EU Blue Card\", \"Remote work\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/jobs",
+              "host": ["{{base_url}}"],
+              "path": ["jobs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scholarships",
+      "item": [
+        {
+          "name": "Get All Scholarships",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/scholarships?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["scholarships"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "country",
+                  "value": "United Kingdom",
+                  "disabled": true
+                },
+                {
+                  "key": "level",
+                  "value": "Master's",
+                  "disabled": true
+                },
+                {
+                  "key": "fundingType",
+                  "value": "Fully Funded",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Scholarship",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/scholarships/1",
+              "host": ["{{base_url}}"],
+              "path": ["scholarships", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Scholarship Levels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/scholarships/levels",
+              "host": ["{{base_url}}"],
+              "path": ["scholarships", "levels"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Items",
+      "item": [
+        {
+          "name": "Save Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemType\": \"job\",\n  \"itemId\": 1,\n  \"notes\": \"Interesting position\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user/saved",
+              "host": ["{{base_url}}"],
+              "path": ["user", "saved"]
+            }
+          }
+        },
+        {
+          "name": "Get Saved Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/saved",
+              "host": ["{{base_url}}"],
+              "path": ["user", "saved"]
+            }
+          }
+        },
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemType\": \"job\",\n  \"itemId\": 1,\n  \"coverLetter\": \"Dear Hiring Manager...\",\n  \"resumeUrl\": \"https://example.com/resume.pdf\",\n  \"notes\": \"Applied via company website\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user/applications",
+              "host": ["{{base_url}}"],
+              "path": ["user", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Get Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/applications",
+              "host": ["{{base_url}}"],
+              "path": ["user", "applications"]
+            }
+          }
+        },
+        {
+          "name": "Update Application Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"interview\",\n  \"notes\": \"Interview scheduled\",\n  \"followUpDate\": \"2025-01-20\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user/applications/1",
+              "host": ["{{base_url}}"],
+              "path": ["user", "applications", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Visa Sponsors",
+      "item": [
+        {
+          "name": "Get All Visa Sponsors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/visa-sponsors?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["visa-sponsors"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "country",
+                  "value": "United Kingdom",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Visa Sponsor",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/visa-sponsors/1",
+              "host": ["{{base_url}}"],
+              "path": ["visa-sponsors", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Newsletter",
+      "item": [
+        {
+          "name": "Subscribe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"preferences\": {\n    \"jobAlerts\": true,\n    \"scholarshipAlerts\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/newsletter/subscribe",
+              "host": ["{{base_url}}"],
+              "path": ["newsletter", "subscribe"]
+            }
+          }
+        },
+        {
+          "name": "Unsubscribe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/newsletter/unsubscribe",
+              "host": ["{{base_url}}"],
+              "path": ["newsletter", "unsubscribe"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
